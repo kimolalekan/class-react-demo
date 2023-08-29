@@ -59,6 +59,18 @@ body {
     min-height: 660px;
   }
 
+  .counter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 30px);
+    gap: 10px;
+    font-size: 30px;
+    div {
+      button {
+        font-size: 30px;
+      }
+    }
+  }
+
   .box {
     height: 300px;
     padding: 10px;

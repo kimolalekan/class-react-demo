@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import AccountStore from "../stores/account";
+import AccountStore from "../stores/mobx/account";
+import accountReducer from "../stores/redux/reducers/account";
 
 export default function Home() {
   const [time, setTime] = React.useState("Loading...");
@@ -9,14 +11,20 @@ export default function Home() {
   const [entered, setEntered] = React.useState(false);
   const [{ name, setName }] = useState(() => new AccountStore());
   const boxRef = useRef(null);
+  const account = useSelector((state) => state.accountReducer);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log((boxRef.current.innerHTML = "Good box"));
-    const subscribe = setInterval(() => {
-      let count = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
-      setTime(count);
-    }, 1000);
-  }, [time]);
+  const toggles = (type) => {
+    dispatch({ state: account, type });
+  };
+
+  // useEffect(() => {
+  //   console.log((boxRef.current.innerHTML = "Good box"));
+  //   const subscribe = setInterval(() => {
+  //     let count = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+  //     setTime(count);
+  //   }, 1000);
+  // }, [time]);
 
   const getFruit = (e) => {
     console.log(e.target.value);
@@ -43,6 +51,20 @@ export default function Home() {
     <>
       <Navbar username={"James Brown"} />
       <div className="page-container top-100 min-height">
+        <div className="counter-grid">
+          <div>
+            <button onClick={() => toggles("decrement")}>-</button>
+          </div>
+          <div>{account}</div>
+          <div>
+            <button onClick={() => toggles("increment")}>+</button>
+          </div>
+        </div>
+        {/* <div>
+          {Array.from({ length: 10 }).map((item, key) => (
+            <h1 key={key}>{key + 1}</h1>
+          ))}
+        </div> */}
         <h1>{time}</h1>
         {/* <h1>
           Hello {new Date().toDateString()} {new Date().getHours()}:
