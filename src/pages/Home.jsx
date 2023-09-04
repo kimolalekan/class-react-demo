@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import useCount from "../stores/zustand";
 
 export default function Home() {
   const [time, setTime] = React.useState("Loading...");
-  const [fruit, handleFruit] = React.useState("fruit");
   const [entered, setEntered] = React.useState(false);
   const boxRef = useRef(null);
+  const { count, incrementCount, decrementCount, fruit, setFruit } = useCount();
 
   // useEffect(() => {
   //   console.log((boxRef.current.innerHTML = "Good box"));
@@ -16,12 +17,17 @@ export default function Home() {
   //   }, 1000);
   // }, [time]);
 
-  const count = 0;
-  const toggles = (state) => {};
+  const toggles = (state) => {
+    if (state === "increment") {
+      incrementCount();
+    } else if (state === "decrement") {
+      decrementCount();
+    }
+  };
 
-  const getFruit = (e) => {
-    console.log(e.target.value);
-    handleFruit(e.target.value);
+  const handleFruit = (e) => {
+    let value = e.target.value;
+    setFruit(value);
   };
 
   const handleEnter = () => {
@@ -64,7 +70,7 @@ export default function Home() {
           {new Date().getMinutes()}
         </h1> */}
 
-        <select onChange={getFruit}>
+        <select onChange={handleFruit}>
           <option value="" disabled>
             Fruits
           </option>
