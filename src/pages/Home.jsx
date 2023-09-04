@@ -1,22 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import AccountStore from "../stores/mobx/account";
-import accountReducer from "../stores/redux/reducers/account";
 
 export default function Home() {
   const [time, setTime] = React.useState("Loading...");
   const [fruit, handleFruit] = React.useState("fruit");
   const [entered, setEntered] = React.useState(false);
-  const [{ name, setName }] = useState(() => new AccountStore());
   const boxRef = useRef(null);
-  const account = useSelector((state) => state.accountReducer);
-  const dispatch = useDispatch();
-
-  const toggles = (type) => {
-    dispatch({ state: account, type });
-  };
 
   // useEffect(() => {
   //   console.log((boxRef.current.innerHTML = "Good box"));
@@ -25,6 +15,9 @@ export default function Home() {
   //     setTime(count);
   //   }, 1000);
   // }, [time]);
+
+  const count = 0;
+  const toggles = (state) => {};
 
   const getFruit = (e) => {
     console.log(e.target.value);
@@ -55,7 +48,7 @@ export default function Home() {
           <div>
             <button onClick={() => toggles("decrement")}>-</button>
           </div>
-          <div>{account}</div>
+          <div>{count}</div>
           <div>
             <button onClick={() => toggles("increment")}>+</button>
           </div>
@@ -70,33 +63,7 @@ export default function Home() {
           Hello {new Date().toDateString()} {new Date().getHours()}:
           {new Date().getMinutes()}
         </h1> */}
-        <form>
-          <p>
-            <input
-              placeholder="Name"
-              defaultValue={name}
-              onKeyUp={(e) => setName(e.target.value)}
-            />
-            {name}
-          </p>
-          <p>
-            <input
-              placeholder="Email"
-              // onKeyUp={(e) => handleForm("email", e.target.value)}
-            />
-            {/* {form.email} */}
-          </p>
-          <p>
-            <input
-              placeholder="Phone"
-              // onKeyUp={(e) => handleForm("phone", e.target.value)}
-            />
-            {/* {form.phone} */}
-          </p>
-          <p>
-            <button>Save</button>
-          </p>
-        </form>
+
         <select onChange={getFruit}>
           <option value="" disabled>
             Fruits
