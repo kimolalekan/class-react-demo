@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { observer } from "mobx-react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AccountStore from "../stores/mobx/account";
-import accountReducer from "../stores/redux/reducers/account";
 
-export default function Home() {
+const Home = observer(() => {
   const [time, setTime] = React.useState("Loading...");
   const [fruit, handleFruit] = React.useState("fruit");
   const [entered, setEntered] = React.useState(false);
-  const [{ name, setName }] = useState(() => new AccountStore());
   const boxRef = useRef(null);
-  const account = useSelector((state) => state.accountReducer);
-  const dispatch = useDispatch();
-
-  const toggles = (type) => {
-    dispatch({ state: account, type });
-  };
+  const [{ name, email, phone, setName }] = useState(() => new AccountStore());
 
   // useEffect(() => {
   //   console.log((boxRef.current.innerHTML = "Good box"));
@@ -51,15 +44,6 @@ export default function Home() {
     <>
       <Navbar username={"James Brown"} />
       <div className="page-container top-100 min-height">
-        <div className="counter-grid">
-          <div>
-            <button onClick={() => toggles("decrement")}>-</button>
-          </div>
-          <div>{account}</div>
-          <div>
-            <button onClick={() => toggles("increment")}>+</button>
-          </div>
-        </div>
         {/* <div>
           {Array.from({ length: 10 }).map((item, key) => (
             <h1 key={key}>{key + 1}</h1>
@@ -123,4 +107,6 @@ export default function Home() {
       <Footer />
     </>
   );
-}
+});
+
+export default Home;

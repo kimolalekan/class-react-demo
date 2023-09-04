@@ -8,7 +8,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Faq from "../pages/Faq";
 
-const router = createBrowserRouter([
+const Routes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
@@ -23,4 +23,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default Routes;

@@ -1,7 +1,7 @@
 import { action, observable, makeAutoObservable } from "mobx";
 
 class AccountStore {
-  @observable name = "James";
+  @observable name = "John Smith";
   @observable email = "";
   phone = "";
 
