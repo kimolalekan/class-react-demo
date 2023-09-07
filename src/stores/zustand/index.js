@@ -1,11 +1,15 @@
 import { create } from "zustand";
 
-const useCount = create((set) => ({
-  count: 30,
-  fruit: "Fruit",
-  setFruit: (value) => set(() => ({ fruit: value })),
-  incrementCount: () => set((state) => ({ count: state.count + 1 })),
-  decrementCount: () => set((state) => ({ count: state.count - 1 })),
+const useConversation = create((set) => ({
+  modal: false,
+  loader: false,
+  conversation: "",
+  messages: [],
+  toggleModal: (value) => set(() => ({ modal: value })),
+  toggleLoader: (value) => set(() => ({ loader: value })),
+  setConversation: (value) => set(() => ({ conversation: value })),
+  setMessages: (value) =>
+    set((state) => ({ messages: [...state.messages, ...[value]] })),
 }));
 
-export default useCount;
+export default useConversation;
