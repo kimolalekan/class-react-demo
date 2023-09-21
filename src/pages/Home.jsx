@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { observer } from "mobx-react";
+import { observer } from "mobx-react-lite";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AccountStore from "../stores/mobx/account";
