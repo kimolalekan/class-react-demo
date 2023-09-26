@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import accountReducer from "../stores/redux/reducers/account";
 
 export default function Home() {
   const [time, setTime] = React.useState("Loading...");
@@ -10,10 +9,15 @@ export default function Home() {
   const [entered, setEntered] = React.useState(false);
   const boxRef = useRef(null);
   const account = useSelector((state) => state.accountReducer);
+  const modal = useSelector((state) => state.modalReducer);
   const dispatch = useDispatch();
 
   const toggles = (type) => {
     dispatch({ state: account, type });
+  };
+
+  const toggleModal = (value) => {
+    dispatch({ state: value, type: "toggle" });
   };
 
   // useEffect(() => {
@@ -49,6 +53,8 @@ export default function Home() {
     <>
       <Navbar username={"James Brown"} />
       <div className="page-container top-100 min-height">
+        <h1>{modal ? "true" : "false"}</h1>
+        <button onClick={() => toggleModal(modal)}>Toggle</button>
         <div className="counter-grid">
           <div>
             <button onClick={() => toggles("decrement")}>-</button>
